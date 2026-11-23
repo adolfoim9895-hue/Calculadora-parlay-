@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1056bd">
   <meta name="description" content="Calcula el pago y la ganancia de parlays con cuotas decimales o americanas.">
-  <title>Calculadora de Parlay 1.1</title>
+  <title>Calculadora de Parlay 1.2</title>
   <style>
     :root { color-scheme:light; --blue:#075bd1;--blue-dark:#0c3486;--ink:#142446;--muted:#53617a;--line:#d7e1ef;--pale:#eaf2ff;--bg:#f3f6fc;--danger:#b32736;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
     *,*::before,*::after{box-sizing:border-box}
@@ -14,59 +14,63 @@
     button,input,select{font:inherit}
     button{cursor:pointer}
     button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #78a9f7;outline-offset:1px}
-    header{flex:none;background:linear-gradient(115deg,#0c438f,#075bd1);color:#fff;padding:calc(9px + env(safe-area-inset-top)) 14px 9px;box-shadow:0 2px 10px #163e741a}
+    header{flex:none;background:linear-gradient(115deg,#0c438f,#075bd1);color:#fff;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;box-shadow:0 2px 10px #163e741a}
     .header-content{display:flex;align-items:center;gap:9px;max-width:530px;margin:auto}
     .brand-icon{flex:none;width:29px;height:29px;border:1px solid #ffffff88;border-radius:8px;display:grid;place-items:center;font-size:19px}
     h1{margin:0;font-size:clamp(17px,4.7vw,21px);letter-spacing:-.45px;line-height:1.15}
     .subtitle{display:none}
-    main{width:100%;max-width:530px;min-height:0;flex:1;display:flex;flex-direction:column;margin:0 auto;padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+    main{width:100%;max-width:530px;min-height:0;flex:1;display:flex;flex-direction:column;margin:0 auto;padding:8px 9px calc(8px + env(safe-area-inset-bottom))}
     .tabs{flex:none;display:grid;grid-template-columns:1fr 1fr;padding:3px;gap:3px;background:#e9edf5;border:1px solid #d1d9e5;border-radius:12px;margin-bottom:8px}
     .tab{border:0;border-radius:9px;background:transparent;color:#334260;font-weight:750;font-size:15px;padding:9px 4px;min-height:40px}
     .tab[aria-selected="true"]{background:linear-gradient(135deg,#0b70ee,#0753c5);color:#fff;box-shadow:0 2px 6px #154ca82b}
-    .panel{min-height:0;flex:1;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 4px 18px #183f7a14;border:1px solid #dce5f2;overflow:hidden}
-    .panel-head{flex:none;background:linear-gradient(90deg,#e1edff,#f0f6ff);padding:9px 13px}
-    h2{margin:0;font-size:18px;color:#102e6b}
-    .panel-body{flex:1;min-height:0;display:flex;flex-direction:column;padding:10px 12px 11px}
+    .panel{min-height:0;flex:1;display:flex;flex-direction:column;background:#fff;border-radius:15px;box-shadow:0 4px 18px #183f7a14;border:1px solid #dce5f2;overflow:hidden}
+    .panel-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding:9px}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .entry-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(94px,1fr);gap:9px;margin-bottom:7px}
-    label{display:block;font-size:12px;font-weight:750;margin-bottom:3px}
-    input,select{width:100%;border:1.5px solid #bac7d9;background:#fff;color:#162341;border-radius:9px;min-height:40px;padding:7px 10px;font-size:17px}
+    .top-cards{flex:none;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:stretch}
+    .top-card{min-width:0;display:flex;flex-direction:column;border:1px solid #cfdff5;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 7px #163f8414}
+    .top-card-head{padding:7px 9px;background:linear-gradient(95deg,#e0ecff,#ecf4ff);font-size:14px;font-weight:800;color:#133675;line-height:1.2}
+    .top-card-body{min-width:0;flex:1;display:flex;flex-direction:column;gap:7px;padding:8px}
+    #add-form{height:100%;display:flex;flex-direction:column;gap:7px}
+    .field{min-width:0}
+    label{display:block;font-size:12px;font-weight:750;margin-bottom:3px;line-height:1.2}
+    input,select{width:100%;min-width:0;border:1.5px solid #bac7d9;background:#fff;color:#162341;border-radius:8px;min-height:38px;padding:6px 8px;font-size:16px}
     input::placeholder{color:#99a5b7}
     select{cursor:pointer;appearance:auto}
-    .odd-wrap,.stake-wrap{position:relative}
-    #odd.with-sign{padding-right:43px}
-    .sign-toggle{position:absolute;right:4px;top:4px;height:32px;min-width:35px;border:0;border-radius:7px;background:#e7f0ff;color:#1251a7;font-weight:800;font-size:17px}
+    .odd-wrap,.stake-wrap{position:relative;min-width:0}
+    #odd.with-sign{padding-right:38px}
+    .sign-toggle{position:absolute;right:4px;top:4px;height:30px;min-width:31px;border:0;border-radius:6px;background:#e7f0ff;color:#1251a7;font-weight:800;font-size:16px}
     .sign-toggle[hidden]{display:none}
-    .btn{width:100%;border-radius:9px;min-height:39px;display:flex;gap:7px;align-items:center;justify-content:center;font-size:14px;font-weight:750;transition:filter .15s}
+    .btn{width:100%;border-radius:8px;min-height:35px;display:flex;gap:4px;align-items:center;justify-content:center;font-size:13px;font-weight:750;transition:filter .15s;padding:5px 3px;white-space:nowrap}
     .btn:active{filter:brightness(.94)}
-    .btn-add{border:1.5px solid var(--blue);color:var(--blue);background:#edf4ff}
-    .btn-calc{border:0;color:#fff;background:linear-gradient(100deg,#0969e5,#064bb7);margin-top:8px}
-    .btn-clear{border:1.5px solid #075bd1;color:var(--blue);background:#fff;margin-top:6px;min-height:36px}
-    .list-area{min-height:42px;flex:1;display:flex;flex-direction:column;margin:7px 0 8px}
-    .list-top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:7px;color:var(--muted);font-size:11px;margin:0 0 4px;font-weight:750}
-    .locked-list{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
-    .locked{background:#eaf2ff;border:1px solid #dce8fa;border-radius:9px;display:grid;grid-template-columns:minmax(0,1fr) auto 30px;align-items:center;gap:6px;padding:3px 3px 3px 10px;min-height:37px;margin-bottom:4px}
+    .btn-add{border:1.5px solid var(--blue);color:#fff;background:linear-gradient(100deg,#0969e5,#064bb7);margin-top:auto}
+    .btn-calc{border:0;color:#fff;background:linear-gradient(100deg,#0969e5,#064bb7);margin-top:auto}
+    .btn-clear{border:1.5px solid #075bd1;color:var(--blue);background:#fff;min-height:35px}
+    .stake-section{min-width:0}
+    .currency{position:absolute;left:9px;top:7px;font-size:16px;font-weight:650;color:#334260;pointer-events:none}
+    #stake{padding-left:23px}
+    .list-area{min-height:0;flex:1;display:flex;flex-direction:column;border:1px solid #cfdff5;border-radius:11px;overflow:hidden;background:#fff}
+    .list-top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:5px;color:#123475;font-size:13px;background:linear-gradient(90deg,#e0ecff,#edf4ff);padding:7px 10px;font-weight:800}
+    #total-games{font-size:11px;color:#4a5d79;white-space:nowrap}
+    .locked-list{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:6px 8px}
+    .locked{background:#eaf2ff;border:1px solid #dce8fa;border-radius:8px;display:grid;grid-template-columns:minmax(0,1fr) auto 29px;align-items:center;gap:6px;padding:2px 3px 2px 9px;min-height:36px;margin-bottom:5px}
+    .locked:last-child{margin-bottom:0}
     .locked-value{color:#102e70;font-weight:800;font-size:15px;overflow-wrap:anywhere}
     .locked-count{font-size:12px;color:#364965;white-space:nowrap}
-    .btn-delete{border:0;height:29px;width:29px;border-radius:50%;font-size:20px;background:#d6e1f3;color:#334764;line-height:1}
+    .btn-delete{border:0;height:28px;width:28px;border-radius:50%;font-size:20px;background:#d6e1f3;color:#334764;line-height:1}
     .btn-delete:active{background:#fce5e6;color:var(--danger)}
-    .empty-list{color:#6b7890;background:#f7f9fd;border:1px dashed #c9d5e5;border-radius:9px;padding:9px;font-size:12px;text-align:center}
-    .empty-list[hidden]{display:none}
-    .stake-section{flex:none}
-    .currency{position:absolute;left:11px;top:8px;font-size:17px;font-weight:650;color:#334260;pointer-events:none}
-    #stake{padding-left:27px}
-    .alert{flex:none;border-radius:7px;padding:6px 9px;color:#8f2435;background:#fff0f2;border:1px solid #f4c7ce;font-size:12px;margin:7px 0 0;max-height:65px;overflow:auto}
+    .empty-list{color:#6b7890;background:#f7f9fd;border:1px dashed #c9d5e5;border-radius:8px;padding:10px;font-size:12px;text-align:center}
+    .alert{flex:none;border-radius:7px;padding:6px 9px;color:#8f2435;background:#fff0f2;border:1px solid #f4c7ce;font-size:12px;max-height:63px;overflow:auto}
     .alert[hidden],.result[hidden]{display:none}
-    .result{flex:none;margin-top:8px;background:linear-gradient(135deg,#e3eeff,#d6e7ff);border:1px solid #b8d4ff;border-radius:11px;padding:7px 10px}
+    .result{flex:none;background:linear-gradient(135deg,#e3eeff,#d6e7ff);border:1px solid #b8d4ff;border-radius:11px;padding:7px 10px}
     .result-heading{color:#0a367f;font-weight:800;margin:0 0 3px;font-size:12px}
     .result-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid #b6cbec;font-size:12px;font-weight:650;line-height:1.2}
     .result-row:last-of-type{border-bottom:0}
     .result-row strong{color:#073caa;font-size:clamp(14px,4vw,18px);text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
     .result-note{font-size:10px;color:#53617a;margin:3px 0 0;line-height:1.1}
     .footnote{display:none}
-    @media(max-width:340px){.panel-body{padding:8px}.entry-grid{gap:6px;grid-template-columns:minmax(0,1.2fr) minmax(89px,1fr)}.tab{font-size:14px}.locked{gap:4px}.locked-value{font-size:14px}}
-    /* With an open Android keyboard, there is not enough room to display every control. Allow vertical movement until it is dismissed. */
-    @media(max-height:560px){body{height:auto;min-height:100dvh;overflow-y:auto}main{flex:none;min-height:0}.panel{flex:none}.panel-body{min-height:430px}.list-area{min-height:58px;max-height:100px}.footnote{display:none}}
+    @media(max-width:350px){.panel-body{padding:6px;gap:6px}.top-cards{gap:6px}.top-card-head{padding:7px}.top-card-body{padding:6px;gap:6px}#add-form{gap:6px}.btn{font-size:12px}.locked{gap:4px}.locked-value{font-size:14px}.tab{font-size:14px}}
+    /* En móviles muy bajos o con el teclado abierto se permite desplazar la página para no ocultar acciones. */
+    @media(max-height:580px){body{height:auto;min-height:100dvh;overflow-y:auto}main{flex:none;min-height:0}.panel{flex:none}.panel-body{min-height:410px}.list-area{min-height:60px;max-height:125px}}
   </style>
 </head>
 <body>
@@ -83,25 +87,41 @@
     </div>
 
     <section class="panel" id="calculator-panel" role="tabpanel" aria-labelledby="tab-decimal">
-      <div class="panel-head"><h2 id="panel-title">Cuotas decimales</h2></div>
       <div class="panel-body">
-        <p class="sr-only">Escribe una cuota, elige cuántos partidos tienen esa cuota (del 1 al 20) y toca Añadir o Calcular.</p>
-
-        <form id="add-form" novalidate>
-          <div class="entry-grid">
-            <div><label for="odd">Cuota</label><div class="odd-wrap"><input id="odd" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Ej. 1.85"><button type="button" id="sign-toggle" class="sign-toggle" aria-label="Cambiar entre cuota positiva y negativa" title="Cambiar signo de cuota" hidden>±</button></div></div>
-            <div><label for="games">Partidos (1–20)</label><select id="games" aria-label="Número de partidos con esta cuota"></select></div>
+        <p class="sr-only" id="panel-title">Calculadora de Parlay. Escribe una cuota, selecciona partidos del 1 al 20 y pulsa Añadir o Calcular.</p>
+        <div class="top-cards">
+          <div class="top-card">
+            <div class="top-card-head">Nueva cuota</div>
+            <div class="top-card-body">
+              <form id="add-form" novalidate>
+                <div class="field">
+                  <label for="odd">Cuota</label>
+                  <div class="odd-wrap"><input id="odd" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Ej. 1.85"><button type="button" id="sign-toggle" class="sign-toggle" aria-label="Cambiar entre cuota positiva y negativa" title="Cambiar signo de cuota" hidden>±</button></div>
+                </div>
+                <div class="field">
+                  <label for="games">Partidos (1–20)</label>
+                  <select id="games" aria-label="Número de partidos con esta cuota"></select>
+                </div>
+                <button class="btn btn-add" type="submit"><span aria-hidden="true">⊕</span> Añadir</button>
+              </form>
+            </div>
           </div>
-          <button class="btn btn-add" type="submit"><span aria-hidden="true">⊕</span> Añadir</button>
-        </form>
-        <div class="list-area"><div class="list-top"><span>Cuotas añadidas (fijas)</span><span id="total-games">0 partidos</span></div>
-        <div id="locked-list" class="locked-list" aria-live="polite"><div class="empty-list" id="empty-list">Aún no has añadido cuotas.</div></div></div>
-
-        <div class="stake-section"><label for="stake">Monto apostado (MXN)</label>
-        <div class="stake-wrap"><span class="currency" aria-hidden="true">$</span><input id="stake" type="text" inputmode="decimal" autocomplete="off" placeholder="Ej. 100"></div></div>
-        <button type="button" class="btn btn-calc" id="calculate"><span aria-hidden="true">▦</span> Calcular</button>
-        <button type="button" class="btn btn-clear" id="clear-all"><span aria-hidden="true">▤</span> Limpiar todo</button>
-
+          <div class="top-card">
+            <div class="top-card-head">Apuesta</div>
+            <div class="top-card-body">
+              <div class="stake-section">
+                <label for="stake">Monto (MXN)</label>
+                <div class="stake-wrap"><span class="currency" aria-hidden="true">$</span><input id="stake" type="text" inputmode="decimal" autocomplete="off" placeholder="Ej. 100"></div>
+              </div>
+              <button type="button" class="btn btn-calc" id="calculate"><span aria-hidden="true">▦</span> Calcular</button>
+              <button type="button" class="btn btn-clear" id="clear-all"><span aria-hidden="true">▤</span> Limpiar todo</button>
+            </div>
+          </div>
+        </div>
+        <div class="list-area">
+          <div class="list-top"><span>Cuotas añadidas</span><span id="total-games">0 partidos</span></div>
+          <div id="locked-list" class="locked-list" aria-live="polite"><div class="empty-list" id="empty-list">Aún no has añadido cuotas.</div></div>
+        </div>
         <div id="alert" class="alert" role="alert" hidden></div>
         <div id="result" class="result" aria-live="polite" hidden>
           <p class="result-heading">Resultado del parlay</p>
@@ -253,7 +273,7 @@
     $('odd').setAttribute('inputmode', 'decimal'); // Teclado numérico en ambas pestañas
     $('odd').classList.toggle('with-sign', mode === 'american');
     $('sign-toggle').hidden = mode !== 'american';
-    $('odd').placeholder = mode === 'decimal' ? 'Ej. 1.85' : 'Ej. +120 o -150';
+    $('odd').placeholder = mode === 'decimal' ? 'Ej. 1.85' : 'Ej. 120';
     $('games').value = state[mode].pendingGames;
     $('stake').value = state[mode].stake;
     showError('');
@@ -290,6 +310,7 @@
     current.pendingGames = '1';
     invalidateResult();
     renderEntries();
+    $('locked-list').scrollTop = $('locked-list').scrollHeight;
     showError('');
     $('odd').value = '';
     gamesSelect.value = '1';
