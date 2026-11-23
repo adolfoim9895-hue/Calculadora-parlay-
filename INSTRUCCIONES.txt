@@ -1,0 +1,24 @@
+CALCULADORA DE PARLAY — PWA LISTA PARA PWABUILDER
+================================================
+
+Para publicar en GitHub desde el celular:
+1. Abre tu repositorio Calculadora-parlay- en la rama main.
+2. Sube TODOS los archivos manteniendo exactamente esta estructura:
+   index.html
+   manifest.webmanifest
+   sw.js
+   icon-192.png
+   icon-512.png
+   icon-maskable-512.png
+3. No subas estos archivos dentro de una subcarpeta extra; deben quedar en la raíz del repositorio.
+4. Confirma la subida (Commit changes) y comprueba la publicación en GitHub Pages.
+5. Abre https://adolfoim9895-hue.github.io/Calculadora-parlay-/ y comprueba que funcione.
+6. Vuelve a PWABuilder, coloca la MISMA URL completa y vuelve a analizar.
+7. Cuando PWABuilder indique que es apta para empaquetar, pulsa Package for Stores > Android.
+
+ATENCIÓN:
+- El APK instala una app basada en el sitio web; no es una app Android nativa reescrita.
+- Para publicar en Google Play se suele utilizar el AAB firmado.
+- Si PWABuilder genera un TWA, para ocultar la barra de navegación es necesario configurar /.well-known/assetlinks.json con la huella del certificado de firma que arroje el empaquetado.
+- Mantén tu clave de firma privada en un lugar seguro. No la subas a GitHub.
+- Puede requerirse cumplir políticas específicas de Google Play para aplicaciones de apuestas; empaquetar no garantiza su aceptación.

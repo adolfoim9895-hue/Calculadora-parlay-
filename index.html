@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1056bd">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <meta name="description" content="Calcula el pago y la ganancia de parlays con cuotas decimales o americanas.">
   <title>Calculadora de Parlay 1.2</title>
   <style>
@@ -404,6 +406,16 @@
 
   // Iniciar pantalla totalmente vacía.
   switchMode('decimal');
+  </script>
+  <script>
+    // Preparar el modo PWA; funciona en HTTPS (GitHub Pages).
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(error => {
+          console.warn('No se pudo registrar el servicio offline:', error);
+        });
+      });
+    }
   </script>
 </body>
 </html>
