@@ -7,7 +7,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icon-192.png">
   <meta name="description" content="Calcula el pago y la ganancia de parlays con cuotas decimales o americanas.">
-  <title>Calculadora de Parlay 1.2</title>
+  <title>Calculadora de Parlay 1.3</title>
   <style>
     :root { color-scheme:light; --blue:#075bd1;--blue-dark:#0c3486;--ink:#142446;--muted:#53617a;--line:#d7e1ef;--pale:#eaf2ff;--bg:#f3f6fc;--danger:#b32736;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
     *,*::before,*::after{box-sizing:border-box}
@@ -84,11 +84,11 @@
   </header>
   <main>
     <div class="tabs" role="tablist" aria-label="Tipo de cuotas">
-      <button type="button" class="tab" id="tab-decimal" role="tab" aria-controls="calculator-panel" aria-selected="true" data-mode="decimal">Decimales</button>
-      <button type="button" class="tab" id="tab-american" role="tab" aria-controls="calculator-panel" aria-selected="false" data-mode="american">Americanas</button>
+      <button type="button" class="tab" id="tab-decimal" role="tab" aria-controls="calculator-panel" aria-selected="false" data-mode="decimal">Decimales</button>
+      <button type="button" class="tab" id="tab-american" role="tab" aria-controls="calculator-panel" aria-selected="true" data-mode="american">Americanas</button>
     </div>
 
-    <section class="panel" id="calculator-panel" role="tabpanel" aria-labelledby="tab-decimal">
+    <section class="panel" id="calculator-panel" role="tabpanel" aria-labelledby="tab-american">
       <div class="panel-body">
         <p class="sr-only" id="panel-title">Calculadora de Parlay. Escribe una cuota, selecciona partidos del 1 al 20 y pulsa Añadir o Calcular.</p>
         <div class="top-cards">
@@ -183,7 +183,7 @@
   // Interfaz
   // ==========================
   const state = {
-    activeMode: 'decimal',
+    activeMode: 'american',
     decimal: { entries: [], stake: '', pendingOdd: '', pendingGames: '1', result: null },
     american: { entries: [], stake: '', pendingOdd: '', pendingGames: '1', result: null }
   };
@@ -405,7 +405,7 @@
   });
 
   // Iniciar pantalla totalmente vacía.
-  switchMode('decimal');
+  switchMode('american');
   </script>
   <script>
     // Preparar el modo PWA; funciona en HTTPS (GitHub Pages).

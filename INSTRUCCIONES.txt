@@ -22,3 +22,6 @@ ATENCIÓN:
 - Si PWABuilder genera un TWA, para ocultar la barra de navegación es necesario configurar /.well-known/assetlinks.json con la huella del certificado de firma que arroje el empaquetado.
 - Mantén tu clave de firma privada en un lugar seguro. No la subas a GitHub.
 - Puede requerirse cumplir políticas específicas de Google Play para aplicaciones de apuestas; empaquetar no garantiza su aceptación.
+
+VERSIÓN 1.3: Al abrir la aplicación se muestra la pestaña Americanas. Decimales permanece disponible.
+Para actualizar el sitio sube index.html y sw.js; los demás archivos del ZIP se mantienen sin cambios.

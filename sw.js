@@ -1,4 +1,4 @@
-const CACHE_NAME = 'parlay-v1-2-pwa-20261122';
+const CACHE_NAME = 'parlay-v1-3-americanas-20261125';
 const PRECACHE = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png'];
 
 self.addEventListener('install', event => {
